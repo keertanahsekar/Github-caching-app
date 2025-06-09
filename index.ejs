@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>Github Repository</title>
+</head>
+<body style="background-color: lightpink;">
+    
+        <div style="border:1px solid black;"><center>
+            <h2>List of User's Repositories</h2>
+
+            <form action="/submit" method="post">
+                <label for="name">User Name:</label><br>
+                <input type="text" id="name" name="name" value="<%= username %>"><br><br>
+
+                <input type="submit" value="Submit">
+            </form>
+
+            <form action="/reset" method="get" >
+                <input type="submit" value="Reset">
+            </form>
+        </center></div>
+
+        <div><center>
+            <% if (repos && repos.length > 0) { %>
+                <h3>Repositories of <%= username %>:</h3>
+            
+                <% if (cached) { %>
+                    <p style="color: rgb(119, 17, 17);"><b><u>(Loaded from cache)</u></b></p>
+                <% } else { %>
+                    <p style="color: rgb(6, 132, 4);"><b><u>(Loaded from GitHub API)</u></b></p>
+                <% } %>
+            
+                <ul>
+                    <% repos.forEach(repo => { %>
+                        <li><a href="<%= repo.html_url %>" target="blank"><%= repo.name %></a></li>
+                    <% }) %>
+                </ul>
+                <% } else if (username && error) { %>
+                    <p>Repositories for "<%= username %>": <%= error %></p>
+            <% } %>
+            
+    
+        </center></div>
+    
+</body>
+</html>
